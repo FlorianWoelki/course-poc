@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import '../model/sidebar.dart';
 
 class SidebarRow extends StatelessWidget {
-  SidebarRow({required this.item});
+  const SidebarRow({required this.item, Key? key}) : super(key: key);
 
   final SidebarItem item;
 
@@ -17,8 +17,8 @@ class SidebarRow extends StatelessWidget {
           height: 42.0,
           padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(14.0),
-              gradient: item.background,
+            borderRadius: BorderRadius.circular(14.0),
+            gradient: item.background,
           ),
           child: item.icon,
         ),

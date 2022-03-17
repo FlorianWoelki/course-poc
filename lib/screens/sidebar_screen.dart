@@ -5,6 +5,8 @@ import '../constants.dart';
 import '../model/sidebar.dart';
 
 class SidebarScreen extends StatelessWidget {
+  const SidebarScreen({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Container(

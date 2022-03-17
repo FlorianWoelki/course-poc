@@ -117,15 +117,15 @@ class HomeScreenNavBar extends StatelessWidget {
       padding: const EdgeInsets.all(20.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
+        children: const [
           SidebarButton(),
           SearchFieldWidget(),
-          const Icon(
+          Icon(
             Icons.notifications,
             color: kPrimaryLabelColor,
           ),
-          const SizedBox(width: 16.0),
-          const CircleAvatar(
+          SizedBox(width: 16.0),
+          CircleAvatar(
             radius: 18.0,
             backgroundImage: AssetImage("asset/images/profile.jpg"),
           ),
@@ -136,6 +136,8 @@ class HomeScreenNavBar extends StatelessWidget {
 }
 
 class SearchFieldWidget extends StatelessWidget {
+  const SearchFieldWidget({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -183,6 +185,8 @@ class SearchFieldWidget extends StatelessWidget {
 }
 
 class SidebarButton extends StatelessWidget {
+  const SidebarButton({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return RawMaterialButton(
