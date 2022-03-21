@@ -1,6 +1,10 @@
 import 'dart:io';
 
+import 'package:course_poc/components/cards/completed_courses_card.dart';
+import 'package:course_poc/components/certificate_viewer.dart';
+import 'package:course_poc/components/lists/completed_courses_list.dart';
 import 'package:course_poc/constants.dart';
+import 'package:course_poc/model/course.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -217,6 +221,62 @@ class ProfileScreen extends StatelessWidget {
                 ),
               ),
             ),
+            Padding(
+              padding: const EdgeInsets.only(
+                top: 32.0,
+                left: 20.0,
+                right: 20.0,
+                bottom: 12.0,
+              ),
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text("Certificates", style: kHeadlineLabelStyle),
+                      Row(
+                        children: [
+                          Text("See all", style: kSearchPlaceholderStyle),
+                          const Icon(
+                            Icons.chevron_right,
+                            color: kSecondaryLabelColor,
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            const CertificateViewer(),
+            Padding(
+              padding: const EdgeInsets.only(
+                left: 20.0,
+                right: 20.0,
+                bottom: 12.0,
+              ),
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text("Completed Courses", style: kHeadlineLabelStyle),
+                      Row(
+                        children: [
+                          Text("See all", style: kSearchPlaceholderStyle),
+                          const Icon(
+                            Icons.chevron_right,
+                            color: kSecondaryLabelColor,
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            const CompletedCoursesList(),
+            const SizedBox(height: 28.0),
           ],
         ),
       ),
