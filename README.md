@@ -1,6 +1,6 @@
 # Proof of concept for courses app
 
-![Home Screen](https://github.com/FlorianWoelki/course-poc/tree/main/docs/preview_image.png)
+![Home Screen](docs/preview_image.png)
 
 ## Getting Started
 
