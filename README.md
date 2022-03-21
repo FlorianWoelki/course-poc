@@ -1,6 +1,6 @@
-# course_poc
+# Proof of concept for courses app
 
-A new Flutter project.
+![Home Screen](https://github.com/FlorianWoelki/course-poc/tree/main/docs/preview_image.png)
 
 ## Getting Started
 
