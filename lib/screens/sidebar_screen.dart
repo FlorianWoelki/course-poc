@@ -38,7 +38,7 @@ class SidebarScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Sai Kumar",
+                      "Test User",
                       style: kHeadlineLabelStyle,
                     ),
                     const SizedBox(
