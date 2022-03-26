@@ -1,4 +1,5 @@
 import 'package:course_poc/constants.dart';
+import 'package:course_poc/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -9,6 +10,9 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  String email = "";
+  String password = "";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -103,6 +107,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                         style: kLoginInputTextStyle.copyWith(
                                           color: Colors.black,
                                         ),
+                                        onChanged: (textEntered) {
+                                          email = textEntered;
+                                        },
                                       ),
                                     ),
                                     const Divider(),
@@ -128,6 +135,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                         style: kLoginInputTextStyle.copyWith(
                                           color: Colors.black,
                                         ),
+                                        onChanged: (textEntered) {
+                                          password = textEntered;
+                                        },
                                       ),
                                     ),
                                   ],
@@ -139,24 +149,34 @@ class _LoginScreenState extends State<LoginScreen> {
                         const SizedBox(height: 15.0),
                         Row(
                           children: [
-                            Container(
-                              child: Text(
-                                "Login",
-                                style: kCalloutLabelStyle.copyWith(
-                                    color: Colors.white),
-                              ),
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(14.0),
-                                gradient: const LinearGradient(
-                                  colors: [
-                                    Color(0xFF73A0F4),
-                                    Color(0xFF4A47F5),
-                                  ],
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => HomeScreen(),
+                                  ),
+                                );
+                              },
+                              child: Container(
+                                child: Text(
+                                  "Login",
+                                  style: kCalloutLabelStyle.copyWith(
+                                      color: Colors.white),
                                 ),
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(14.0),
+                                  gradient: const LinearGradient(
+                                    colors: [
+                                      Color(0xFF73A0F4),
+                                      Color(0xFF4A47F5),
+                                    ],
+                                  ),
+                                ),
+                                height: 47.0,
+                                width: MediaQuery.of(context).size.width * 0.3,
                               ),
-                              height: 47.0,
-                              width: MediaQuery.of(context).size.width * 0.3,
                             ),
                           ],
                         ),
