@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "964562552467",
+    "project_id": "course-poc",
+    "storage_bucket": "course-poc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:964562552467:android:6817db985df37631476f66",
+        "android_client_info": {
+          "package_name": "com.florianwoelki.course_poc"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "964562552467-abmti97airhacjofngjubv6u97751d9i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAroGbH0pKyhT0dlt4448wOPrjJ26iAJaI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "964562552467-abmti97airhacjofngjubv6u97751d9i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
