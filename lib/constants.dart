@@ -95,3 +95,9 @@ var kCaptionLabelStyle = TextStyle(
   fontFamily: Platform.isIOS ? 'SF Pro Text' : null,
   decoration: TextDecoration.none,
 );
+var kLoginInputTextStyle = TextStyle(
+  fontSize: 15.0,
+  color: Colors.black.withOpacity(0.3),
+  fontFamily: Platform.isIOS ? 'SF Pro Text' : null,
+  decoration: TextDecoration.none,
+);
