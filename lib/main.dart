@@ -1,6 +1,8 @@
+import 'package:course_poc/screens/home_screen.dart';
 import 'package:course_poc/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,9 +17,11 @@ class MyApp extends StatelessWidget {
       future: Firebase.initializeApp(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
-          return const MaterialApp(
+          return MaterialApp(
             debugShowCheckedModeBanner: false,
-            home: LoginScreen(),
+            home: FirebaseAuth.instance.currentUser == null
+                ? const LoginScreen()
+                : const HomeScreen(),
           );
         }
 
