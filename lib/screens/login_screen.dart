@@ -1,6 +1,7 @@
 import 'package:course_poc/constants.dart';
 import 'package:course_poc/screens/home_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -12,6 +13,17 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   String email = "";
   String password = "";
+  final _auth = FirebaseAuth.instance;
+
+  _pushToHome() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const HomeScreen(),
+        fullscreenDialog: false,
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -150,13 +162,47 @@ class _LoginScreenState extends State<LoginScreen> {
                         Row(
                           children: [
                             GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => HomeScreen(),
-                                  ),
-                                );
+                              onTap: () async {
+                                try {
+                                  await _auth.signInWithEmailAndPassword(
+                                    email: email,
+                                    password: password,
+                                  );
+                                  _pushToHome();
+                                } on FirebaseAuthException catch (err) {
+                                  if (err.code == "user-not-found") {
+                                    try {
+                                      await _auth
+                                          .createUserWithEmailAndPassword(
+                                            email: email,
+                                            password: password,
+                                          )
+                                          .then(
+                                            (user) => {
+                                              _pushToHome(),
+                                            },
+                                          );
+                                    } catch (err) {}
+                                  } else {
+                                    showDialog(
+                                      context: context,
+                                      builder: (context) {
+                                        return AlertDialog(
+                                          title: const Text("Error"),
+                                          content: Text(err.message!),
+                                          actions: [
+                                            TextButton(
+                                              onPressed: () {
+                                                Navigator.of(context).pop();
+                                              },
+                                              child: const Text("Ok"),
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                    );
+                                  }
+                                }
                               },
                               child: Container(
                                 child: Text(
