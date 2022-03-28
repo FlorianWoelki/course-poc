@@ -2,6 +2,7 @@ import 'package:course_poc/constants.dart';
 import 'package:course_poc/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -14,6 +15,20 @@ class _LoginScreenState extends State<LoginScreen> {
   String email = "";
   String password = "";
   final _auth = FirebaseAuth.instance;
+  final _firestore = FirebaseFirestore.instance;
+
+  Future<void> _createNewUserData() {
+    return _firestore.collection("users").doc(_auth.currentUser!.uid).set({
+      "name": "User",
+      "uid": _auth.currentUser!.uid,
+      "bio": "Student",
+      "completed": [],
+      "recents": [],
+      "badges": [],
+      "certificates": [],
+      "profilePic": "",
+    });
+  }
 
   _pushToHome() {
     Navigator.push(
@@ -180,6 +195,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                           .then(
                                         (user) {
                                           user.user!.sendEmailVerification();
+                                          _createNewUserData();
                                           _pushToHome();
                                         },
                                       );
