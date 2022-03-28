@@ -1,22 +1,51 @@
 import 'dart:io';
 
-import 'package:course_poc/components/cards/completed_courses_card.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:course_poc/components/certificate_viewer.dart';
 import 'package:course_poc/components/lists/completed_courses_list.dart';
 import 'package:course_poc/constants.dart';
-import 'package:course_poc/model/course.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class ProfileScreen extends StatelessWidget {
-  ProfileScreen({Key? key}) : super(key: key);
+class ProfileScreen extends StatefulWidget {
+  const ProfileScreen({Key? key}) : super(key: key);
 
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
   final List<String> badges = [
     "badge-01.png",
     "badge-02.png",
     "badge-03.png",
     "badge-04.png",
   ];
+  final _firestore = FirebaseFirestore.instance;
+  final _auth = FirebaseAuth.instance;
+
+  var name = "Loading...";
+  var bio = "Loading...";
+
+  @override
+  void initState() {
+    super.initState();
+    _loadUserData();
+  }
+
+  void _loadUserData() {
+    _firestore
+        .collection("users")
+        .doc(_auth.currentUser!.uid)
+        .get()
+        .then((snapshot) {
+      setState(() {
+        name = snapshot.data()!["name"];
+        bio = snapshot.data()!["bio"];
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -139,12 +168,12 @@ class ProfileScreen extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                "Test User",
+                                name,
                                 style: kTitle2Style,
                               ),
                               const SizedBox(height: 8.0),
                               Text(
-                                "Flutter Developer",
+                                bio,
                                 style: kSecondaryCalloutLabelStyle,
                               ),
                             ],

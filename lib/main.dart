@@ -17,9 +17,11 @@ class MyApp extends StatelessWidget {
       future: Firebase.initializeApp(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
-          return const MaterialApp(
+          return MaterialApp(
             debugShowCheckedModeBanner: false,
-            home: LoginScreen(),
+            home: FirebaseAuth.instance.currentUser == null
+                ? const LoginScreen()
+                : const HomeScreen(),
           );
         }
 
