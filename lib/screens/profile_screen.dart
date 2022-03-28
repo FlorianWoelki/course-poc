@@ -5,6 +5,7 @@ import 'package:course_poc/components/certificate_viewer.dart';
 import 'package:course_poc/components/lists/completed_courses_list.dart';
 import 'package:course_poc/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -19,6 +20,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   var badges = [];
   final _firestore = FirebaseFirestore.instance;
   final _auth = FirebaseAuth.instance;
+  final _storage = FirebaseStorage.instance;
 
   var name = "Loading...";
   var bio = "Loading...";
@@ -34,8 +36,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
     _firestore.collection("users").doc(_auth.currentUser!.uid).get().then(
       (snapshot) {
         for (var badge in snapshot.data()!["badges"]) {
-          setState(() {
-            badges.add(badge);
+          _storage.ref("badges/$badge").getDownloadURL().then((url) {
+            setState(() {
+              badges.add(url);
+            });
           });
         }
       },
@@ -343,7 +347,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 ),
                               ],
                             ),
-                            child: Image.asset("asset/badges/${badges[index]}"),
+                            child: Image.network("${badges[index]}"),
                           );
                         },
                       ),
