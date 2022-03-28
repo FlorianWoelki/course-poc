@@ -29,7 +29,12 @@ class ExploreCourseCard extends StatelessWidget {
                     children: [
                       Text(course.courseSubtitle, style: kCardSubtitleStyle),
                       const SizedBox(height: 6.0),
-                      Text(course.courseTitle, style: kCardTitleStyle),
+                      Text(
+                        course.courseTitle,
+                        style: kCardTitleStyle,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ],
                   ),
                 ),
