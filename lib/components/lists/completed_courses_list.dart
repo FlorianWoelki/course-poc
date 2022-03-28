@@ -42,7 +42,7 @@ class _CompletedCoursesListState extends State<CompletedCoursesList> {
             completedCourses.add(
               Course(
                 courseTitle: courseSnapshot["courseTitle"],
-                courseSubtitle: courseSnapshot["courseSubtitle"],
+                courseSubtitle: courseSnapshot["subtitle"],
                 illustration: courseSnapshot["illustration"],
                 logo: courseSnapshot["logo"],
                 background: LinearGradient(

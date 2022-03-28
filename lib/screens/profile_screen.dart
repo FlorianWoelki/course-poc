@@ -265,7 +265,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       child: Row(
                         children: [
                           GestureDetector(
-                            onTap: () {},
+                            onTap: () {
+                              getImage();
+                            },
                             child: Container(
                               child: Padding(
                                 padding: const EdgeInsets.all(6.0),

@@ -199,7 +199,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                           _pushToHome();
                                         },
                                       );
-                                    } catch (err) {}
+                                    } catch (err) {
+                                      // TODO: Handle error handling
+                                    }
                                   } else {
                                     showDialog(
                                       context: context,

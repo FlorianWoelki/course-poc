@@ -28,7 +28,7 @@ class _ExploreCourseListState extends State<ExploreCourseList> {
           exploreCourses.add(
             Course(
               courseTitle: doc["courseTitle"],
-              courseSubtitle: doc["courseSubtitle"],
+              courseSubtitle: doc["subtitle"],
               illustration: doc["illustration"],
               logo: doc["logo"],
               background: LinearGradient(
