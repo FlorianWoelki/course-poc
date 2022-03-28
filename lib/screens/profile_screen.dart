@@ -8,6 +8,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -24,12 +25,35 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   var name = "Loading...";
   var bio = "Loading...";
+  String? photoURL = FirebaseAuth.instance.currentUser!.photoURL;
 
   @override
   void initState() {
     super.initState();
+    _auth.currentUser!.reload();
     _loadUserData();
     _loadBadges();
+  }
+
+  Future getImage() async {
+    final pickedFile = await ImagePicker().pickImage(
+      source: ImageSource.gallery,
+    );
+    if (pickedFile != null) {
+      File _image = File(pickedFile.path);
+      _storage
+          .ref("profile_pictures/${_auth.currentUser!.uid}.jpg")
+          .putFile(_image)
+          .then((snapshot) {
+        snapshot.ref.getDownloadURL().then((url) {
+          _firestore.collection("users").doc(_auth.currentUser!.uid).update({
+            "profilePic": url,
+          }).then((snapshot) {
+            _auth.currentUser!.updatePhotoURL(url);
+          });
+        });
+      });
+    }
   }
 
   void _loadBadges() {
@@ -240,33 +264,46 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       padding: const EdgeInsets.symmetric(horizontal: 20.0),
                       child: Row(
                         children: [
-                          Container(
-                            child: Padding(
-                              padding: const EdgeInsets.all(6.0),
-                              child: Container(
+                          GestureDetector(
+                            onTap: () {},
+                            child: Container(
+                              child: Padding(
                                 padding: const EdgeInsets.all(6.0),
-                                child: const CircleAvatar(
-                                  backgroundImage: AssetImage(
-                                    "asset/images/profile.jpg",
+                                child: Container(
+                                  padding: const EdgeInsets.all(6.0),
+                                  child: CircleAvatar(
+                                    backgroundColor: const Color(0xFFE7EEFB),
+                                    child: photoURL != null
+                                        ? ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(30.0),
+                                            child: Image.network(
+                                              photoURL!,
+                                              width: 60.0,
+                                              height: 60.0,
+                                              fit: BoxFit.cover,
+                                            ),
+                                          )
+                                        : const Icon(Icons.person),
+                                    radius: 30.0,
                                   ),
-                                  radius: 30.0,
-                                ),
-                                decoration: BoxDecoration(
-                                  color: kBackgroundColor,
-                                  borderRadius: BorderRadius.circular(40.0),
+                                  decoration: BoxDecoration(
+                                    color: kBackgroundColor,
+                                    borderRadius: BorderRadius.circular(40.0),
+                                  ),
                                 ),
                               ),
-                            ),
-                            height: 84.0,
-                            width: 84.0,
-                            decoration: BoxDecoration(
-                              gradient: const RadialGradient(
-                                colors: [
-                                  Color(0xFF00AEFF),
-                                  Color(0xFF0076FF),
-                                ],
+                              height: 84.0,
+                              width: 84.0,
+                              decoration: BoxDecoration(
+                                gradient: const RadialGradient(
+                                  colors: [
+                                    Color(0xFF00AEFF),
+                                    Color(0xFF0076FF),
+                                  ],
+                                ),
+                                borderRadius: BorderRadius.circular(42.0),
                               ),
-                              borderRadius: BorderRadius.circular(42.0),
                             ),
                           ),
                           const SizedBox(width: 16.0),
